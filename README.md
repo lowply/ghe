@@ -8,20 +8,20 @@ First you need the following:
 
 - The config file (*~/.config/ghe.yaml*)
 - Domain you use for the instance
-- SSL certificate
-- dnsmasq shuold be running on your laptop
+- SSL certificate for the domain
+- dnsmasq shuold be running on your computer
 - AWS credentials
 - SSH key in your AWS console
-- Security group and subnet id
+- Security group and subnet id configured on the VPC
 
 ### ami
 
 Prints the ami id of the target version in your region.
 
 ```
-$ ghe ami 2.18.4
-Getting https://github-enterprise.s3.amazonaws.com/release/release-2.18.4.yml
-ami-0450be6734614ad92
+$ ghe ami 2.20.4
+Getting https://github-enterprise.s3.amazonaws.com/release/release-2.20.4.yml
+ami-0678075aefcdce317
 ```
 
 ### launch
@@ -47,7 +47,7 @@ Restarting dnsmasq...
 If you provide the `replica` as a second argument, it launches an instance but doesn't update your dns configuration.
 
 ```
-$ ghe launch 2.18.4 replica
+$ ghe launch 2.20.4 replica
 ```
 
 ### start
@@ -66,12 +66,24 @@ Stops the instance. Accepts multiple arguments.
 $ ghe stop i-0f1e5ab2dde71cf13
 ```
 
+Or
+
+```
+$ ghe stop all
+```
+
 ### terminate
 
 Terminates the instance. Accepts multiple arguments.
 
 ```
 $ ghe terminate i-0f1e5ab2dde71cf13
+```
+
+Or
+
+```
+$ ghe terminate all
 ```
 
 ### dns
@@ -145,9 +157,13 @@ GLOBAL OPTIONS:
 
 ## Install
 
-go get ghe.io/lowply/ghe
+```
+go get github.com/lowply/ghe
+```
 
-## Config example (*~/.config/ghe.yaml*)
+## Config example
+
+The config file path should be *~/.config/ghe.yaml*.
 
 ```
 ---
