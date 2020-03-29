@@ -1,0 +1,14 @@
+archives:
+- format:
+  files:
+  - none*
+  replacements:
+    darwin: macOS
+snapshot:
+  name_template: '{{ .Tag }}'
+builds:
+  -
+    goos:
+      - darwin
+    goarch:
+      - amd64
