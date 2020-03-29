@@ -1,6 +1,20 @@
 # ghe
 
-Manage GitHub Enterprise Server instances on AWS.
+Manage GitHub Enterprise Server instances on AWS. Currently only supports macOS.
+
+## Install
+
+If you have [Go](https://golang.org/) installed on your machine, just run:
+
+```
+go get github.com/lowply/ghe
+```
+
+If you don't:
+
+- Download [the latest release](https://github.com/lowply/ghe/releases)
+- Unarchive it
+- Move the `ghe` binary to `/usr/local/bin` or equivalent directory
 
 ## Usage
 
@@ -153,12 +167,6 @@ COMMANDS:
 GLOBAL OPTIONS:
    --help, -h     show help (default: false)
    --version, -v  print the version (default: false)
-```
-
-## Install
-
-```
-go get github.com/lowply/ghe
 ```
 
 ## Config example
