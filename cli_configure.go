@@ -388,7 +388,7 @@ func (c *configure) addkey() error {
 			Comment     string `json:"comment"`
 		}{}
 		json.Unmarshal(content, kp)
-		fmt.Println("Keys:\n")
+		fmt.Println("Keys:")
 		for _, v := range kp {
 			fmt.Printf("%s - %s - %s\n", v.Key, v.PrettyPrint, v.Comment)
 		}
