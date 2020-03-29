@@ -2,7 +2,7 @@
 
 Manage GitHub Enterprise Server instances on AWS. Currently only supports macOS.
 
-## Install
+## Installation
 
 If you have [Go](https://golang.org/) installed on your machine, just run:
 
@@ -27,6 +27,8 @@ First you need the following:
 - AWS credentials
 - SSH key in your AWS console
 - Security group and subnet id configured on the VPC
+
+## Subcommands
 
 ### ami
 
