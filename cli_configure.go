@@ -199,14 +199,12 @@ func (c *configure) initconfig() error {
 
 	req.Header.Add("Content-Type", writer.FormDataContentType())
 
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: true,
-		},
-	}
-
 	client := &http.Client{
-		Transport: tr,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
 	}
 
 	res, err := client.Do(req)
@@ -260,14 +258,12 @@ func (c *configure) sendconfig() error {
 
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: true,
-		},
-	}
-
 	client := &http.Client{
-		Transport: tr,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
 	}
 
 	res, err := client.Do(req)
@@ -298,14 +294,12 @@ func (c *configure) applyconfig() error {
 		return err
 	}
 
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: true,
-		},
-	}
-
 	client := &http.Client{
-		Transport: tr,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
 	}
 
 	res, err := client.Do(req)
@@ -358,14 +352,12 @@ func (c *configure) addkey() error {
 
 	req.Header.Add("Content-Type", writer.FormDataContentType())
 
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: true,
-		},
-	}
-
 	client := &http.Client{
-		Transport: tr,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
 	}
 
 	res, err := client.Do(req)
@@ -421,14 +413,12 @@ func (c *configure) checkprogress() error {
 		return err
 	}
 
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: true,
-		},
-	}
-
 	client := &http.Client{
-		Transport: tr,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
 	}
 
 	s := &struct {
