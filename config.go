@@ -47,14 +47,14 @@ type Config struct {
 			} `json:"acme"`
 		} `json:"github_ssl"`
 		Ldap struct {
-			Host                      string        `json:"host"`
-			Port                      int           `json:"port"`
-			Base                      []string      `json:"base"`
-			UID                       string        `json:"uid"`
-			BindDn                    string        `json:"bind_dn"`
-			Password                  string        `json:"password"`
-			Method                    string        `json:"method"`
-			SearchStrategy            string        `json:"search_strategy"`
+			Host     string   `json:"host"`
+			Port     int      `json:"port"`
+			Base     []string `json:"base"`
+			UID      string   `json:"uid"`
+			BindDn   string   `json:"bind_dn"`
+			Password string   `json:"password"`
+			Method   string   `json:"method"`
+			// SearchStrategy            string        `json:"search_strategy"`
 			UserGroups                []interface{} `json:"user_groups"`
 			AdminGroup                string        `json:"admin_group"`
 			VirtualAttributeEnabled   bool          `json:"virtual_attribute_enabled"`
