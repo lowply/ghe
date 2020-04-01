@@ -219,7 +219,6 @@ func (c *configure) initconfig() error {
 	}
 
 	if len(content) > 0 {
-		// em := &ErrorMessage{}
 		em := &struct {
 			Error   string `json:"error"`
 			Message string `json:"message"`
@@ -373,7 +372,6 @@ func (c *configure) addkey() error {
 	}
 
 	if len(content) > 0 {
-		fmt.Println(string(content))
 		kp := []struct {
 			Key         string `json:"key"`
 			PrettyPrint string `json:"pretty-print"`
