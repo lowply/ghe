@@ -74,6 +74,16 @@ func (c *configure) generate_settings() error {
 		return err
 	}
 
+	// Some attributes in config.go are commented out so that
+	// they don't show up in the ~/.config/ghe-config.json file
+	// and the default value (in GitHub Enterprise Server)
+	// will be used.
+	//
+	// Attributes not commented out in config.go neither mentioned
+	// in here will show up in the ~/.config/ghe-config.json file
+	// and the default value (in Golang) will be set,
+	// e.g. c.data.Enterprise.PublicPages being false
+
 	// Basic
 	c.data.Enterprise.PrivateMode = true
 	c.data.Enterprise.SubdomainIsolation = true
@@ -199,14 +209,12 @@ func (c *configure) initconfig() error {
 
 	req.Header.Add("Content-Type", writer.FormDataContentType())
 
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: true,
-		},
-	}
-
 	client := &http.Client{
-		Transport: tr,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
 	}
 
 	res, err := client.Do(req)
@@ -221,7 +229,6 @@ func (c *configure) initconfig() error {
 	}
 
 	if len(content) > 0 {
-		// em := &ErrorMessage{}
 		em := &struct {
 			Error   string `json:"error"`
 			Message string `json:"message"`
@@ -260,14 +267,12 @@ func (c *configure) sendconfig() error {
 
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: true,
-		},
-	}
-
 	client := &http.Client{
-		Transport: tr,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
 	}
 
 	res, err := client.Do(req)
@@ -298,14 +303,12 @@ func (c *configure) applyconfig() error {
 		return err
 	}
 
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: true,
-		},
-	}
-
 	client := &http.Client{
-		Transport: tr,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
 	}
 
 	res, err := client.Do(req)
@@ -358,14 +361,12 @@ func (c *configure) addkey() error {
 
 	req.Header.Add("Content-Type", writer.FormDataContentType())
 
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: true,
-		},
-	}
-
 	client := &http.Client{
-		Transport: tr,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
 	}
 
 	res, err := client.Do(req)
@@ -381,16 +382,20 @@ func (c *configure) addkey() error {
 	}
 
 	if len(content) > 0 {
-		fmt.Println(string(content))
 		kp := []struct {
 			Key         string `json:"key"`
 			PrettyPrint string `json:"pretty-print"`
 			Comment     string `json:"comment"`
 		}{}
-		json.Unmarshal(content, kp)
+
+		err := json.Unmarshal(content, &kp)
+		if err != nil {
+			return err
+		}
+
 		fmt.Println("Keys:")
 		for _, v := range kp {
-			fmt.Printf("%s - %s - %s\n", v.Key, v.PrettyPrint, v.Comment)
+			fmt.Printf("%s - %s\n", v.PrettyPrint, v.Comment)
 		}
 	}
 
@@ -421,14 +426,12 @@ func (c *configure) checkprogress() error {
 		return err
 	}
 
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: true,
-		},
-	}
-
 	client := &http.Client{
-		Transport: tr,
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true,
+			},
+		},
 	}
 
 	s := &struct {
@@ -479,8 +482,8 @@ func (c *configure) checkprogress() error {
 	if s.Status == "success" {
 		fmt.Println(c.domain + " is now ready!")
 	} else {
-		fmt.Println("Failed to configure " + c.domain + " :(")
 		fmt.Println("Status: " + s.Status)
+		return errors.New("Failed to configure " + c.domain + " :(")
 	}
 
 	return nil
