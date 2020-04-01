@@ -215,3 +215,8 @@ syslog:
   host: "syslog.example.com"
   cert: "/path/to/ca.pem"
 ```
+
+## Deploy
+
+- Update version in main.go
+- Run `git tag <version> && git push origin --tags`
