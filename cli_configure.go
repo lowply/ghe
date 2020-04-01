@@ -74,6 +74,16 @@ func (c *configure) generate_settings() error {
 		return err
 	}
 
+	// Some attributes in config.go are commented out so that
+	// they don't show up in the ~/.config/ghe-config.json file
+	// and the default value (in GitHub Enterprise Server)
+	// will be used.
+	//
+	// Attributes not commented out in config.go neither mentioned
+	// in here will show up in the ~/.config/ghe-config.json file
+	// and the default value (in Golang) will be set,
+	// e.g. c.data.Enterprise.PublicPages being false
+
 	// Basic
 	c.data.Enterprise.PrivateMode = true
 	c.data.Enterprise.SubdomainIsolation = true
