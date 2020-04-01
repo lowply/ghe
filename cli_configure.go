@@ -472,8 +472,8 @@ func (c *configure) checkprogress() error {
 	if s.Status == "success" {
 		fmt.Println(c.domain + " is now ready!")
 	} else {
-		fmt.Println("Failed to configure " + c.domain + " :(")
 		fmt.Println("Status: " + s.Status)
+		return errors.New("Failed to configure " + c.domain + " :(")
 	}
 
 	return nil
