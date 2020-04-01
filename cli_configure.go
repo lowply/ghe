@@ -377,10 +377,15 @@ func (c *configure) addkey() error {
 			PrettyPrint string `json:"pretty-print"`
 			Comment     string `json:"comment"`
 		}{}
-		json.Unmarshal(content, kp)
+
+		err := json.Unmarshal(content, &kp)
+		if err != nil {
+			return err
+		}
+
 		fmt.Println("Keys:")
 		for _, v := range kp {
-			fmt.Printf("%s - %s - %s\n", v.Key, v.PrettyPrint, v.Comment)
+			fmt.Printf("%s - %s\n", v.PrettyPrint, v.Comment)
 		}
 	}
 
