@@ -233,7 +233,11 @@ func (c *configure) initconfig() error {
 			Error   string `json:"error"`
 			Message string `json:"message"`
 		}{}
-		json.Unmarshal(content, em)
+		err := json.Unmarshal(content, em)
+		if err != nil {
+			return errors.New(fmt.Sprintf("Error parsing HTTP response body:\n%s\n\nIf you just launched the instance, please give it few more seconds to get ready and try again.", content))
+		}
+
 		if em.Error == "password-error" {
 			fmt.Printf("Message in initconfig: %s\n", em.Message)
 			return nil
@@ -382,19 +386,19 @@ func (c *configure) addkey() error {
 	}
 
 	if len(content) > 0 {
-		kp := []struct {
+		kp := &[]struct {
 			Key         string `json:"key"`
 			PrettyPrint string `json:"pretty-print"`
 			Comment     string `json:"comment"`
 		}{}
 
-		err := json.Unmarshal(content, &kp)
+		err := json.Unmarshal(content, kp)
 		if err != nil {
-			return err
+			return errors.New(fmt.Sprintf("Error parsing HTTP response body:\n%s\n", content))
 		}
 
 		fmt.Println("Keys:")
-		for _, v := range kp {
+		for _, v := range *kp {
 			fmt.Printf("%s - %s\n", v.PrettyPrint, v.Comment)
 		}
 	}
@@ -458,7 +462,7 @@ func (c *configure) checkprogress() error {
 
 		err = json.Unmarshal(content, s)
 		if err != nil {
-			return err
+			return errors.New(fmt.Sprintf("Error parsing HTTP response body:\n%s\n", content))
 		}
 
 		if s.Status != "running" {
