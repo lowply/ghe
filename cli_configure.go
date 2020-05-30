@@ -238,9 +238,12 @@ func (c *configure) initconfig() error {
 			return errors.New(fmt.Sprintf("Error parsing HTTP response body:\n%s\n\nIf you just launched the instance, please give it few more seconds to get ready and try again.", content))
 		}
 
-		if em.Error == "password-error" {
-			fmt.Printf("Message in initconfig: %s\n", em.Message)
-			return nil
+		if em.Error == "password-error" && em.Message == "Password already set." {
+			fmt.Printf("Message in initconfig: %s\nRunning 'Modify settings' instead.\n", em.Message)
+			err := c.sendconfig()
+			if err != nil {
+				return err
+			}
 		} else {
 			return errors.New(fmt.Sprintf("Error in initconfig: %s - %s\n", em.Error, em.Message))
 		}
@@ -488,20 +491,6 @@ func (c *configure) checkprogress() error {
 	} else {
 		fmt.Println("Status: " + s.Status)
 		return errors.New("Failed to configure " + c.domain + " :(")
-	}
-
-	return nil
-}
-
-func (c *configure) updateconfig() error {
-	err := c.sendconfig()
-	if err != nil {
-		return err
-	}
-
-	err = c.applyconfig()
-	if err != nil {
-		return err
 	}
 
 	return nil
