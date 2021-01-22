@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 
 	ver "github.com/hashicorp/go-version"
 	yaml "gopkg.in/yaml.v2"
@@ -20,8 +21,15 @@ func newReleaseYaml(v *ver.Version) (*releaseYaml, error) {
 		version: v,
 	}
 
+	nv := y.version.String()
+	if v.Prerelease() != "" {
+		nv = strings.Replace(nv, "-", ".", -1)
+		nv = strings.Replace(nv, "rc.", "rc", -1)
+		fmt.Println(nv)
+	}
+
 	baseURL := "https://github-enterprise.s3.amazonaws.com"
-	url := baseURL + "/release/release-" + y.version.String() + ".yml"
+	url := baseURL + "/release/release-" + nv + ".yml"
 	fmt.Println("Getting " + url)
 	resp, err := http.Get(url)
 	if err != nil {
