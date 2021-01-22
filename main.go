@@ -8,7 +8,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-const version = "0.0.3"
+const version = "0.0.4"
 
 var commands = []*cli.Command{
 	&cli.Command{
