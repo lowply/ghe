@@ -20,13 +20,21 @@ If you don't:
 
 First you need the following:
 
-- The config file (*~/.config/ghe.yaml*)
+- The config file (_~/.config/ghe.yaml_)
 - Domain you use for the instance
 - SSL certificate for the domain
 - dnsmasq shuold be running on your computer
 - AWS credentials
 - SSH key in your AWS console
 - Security group and subnet id configured on the VPC
+
+## Release Candidates
+
+Since GitHub Enterprise Server 3.0 series, release candidates (RCs) are released prior to the major release. Although GitHub uses [x.y.z.rcN](https://enterprise.github.com/releases/3.0.0/download) format, the `ghe` command only accepts [Semantic Versioning](https://semver.org/) i.e. `x.y.z-rc.N`. For example, to launch GitHub Enterprise Server 3.0.0.rc1, you should run
+
+```
+ghe launch 3.0.0-rc.1
+```
 
 ## Subcommands
 
@@ -104,13 +112,13 @@ $ ghe terminate all
 
 ### dns
 
-Updates your */usr/local/etc/dnsmasq.d/ghe* file and restart dnsmasq.
+Updates your _/usr/local/etc/dnsmasq.d/ghe_ file and restart dnsmasq.
 
 ```
 $ ghe dns 3.112.56.237
 ```
 
-The */usr/local/etc/dnsmasq.d/ghe* file example:
+The _/usr/local/etc/dnsmasq.d/ghe_ file example:
 
 ```
 $ cat /usr/local/etc/dnsmasq.d/ghe
@@ -132,7 +140,7 @@ $ ghe list
 
 ### init
 
-Runs the initial configuration based on the *~/.config/ghe.yaml*
+Runs the initial configuration based on the _~/.config/ghe.yaml_
 
 ```
 $ ghe init i-0f1e5ab2dde71cf13
@@ -173,7 +181,7 @@ GLOBAL OPTIONS:
 
 ## Config example
 
-The config file path should be *~/.config/ghe.yaml*.
+The config file path should be _~/.config/ghe.yaml_.
 
 ```
 ---
