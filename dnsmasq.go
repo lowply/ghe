@@ -27,7 +27,7 @@ func newDnsmasq() (*dnsmasq, error) {
 	}
 
 	d := &dnsmasq{
-		path:   "/usr/local/etc/dnsmasq.d/ghe",
+		path:   "/usr/local/etc/dnsmasq.d/ghe.conf",
 		domain: viper.GetString("basic.domain"),
 	}
 

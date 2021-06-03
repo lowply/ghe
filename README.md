@@ -112,16 +112,16 @@ $ ghe terminate all
 
 ### dns
 
-Updates your _/usr/local/etc/dnsmasq.d/ghe_ file and restart dnsmasq.
+Updates your _/usr/local/etc/dnsmasq.d/ghe.conf_ file and restart dnsmasq.
 
 ```
 $ ghe dns 3.112.56.237
 ```
 
-The _/usr/local/etc/dnsmasq.d/ghe_ file example:
+The _/usr/local/etc/dnsmasq.d/ghe.conf_ file example:
 
 ```
-$ cat /usr/local/etc/dnsmasq.d/ghe
+$ cat /usr/local/etc/dnsmasq.d/ghe.conf
 address=/ghe.example.com/3.112.56.237
 ```
 
