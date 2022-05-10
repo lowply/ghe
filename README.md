@@ -7,7 +7,7 @@ Manage GitHub Enterprise Server instances on AWS. Currently only supports macOS.
 If you have [Go](https://golang.org/) installed on your machine, just run:
 
 ```
-go get github.com/lowply/ghe
+go install github.com/lowply/ghe@latest
 ```
 
 If you don't:
