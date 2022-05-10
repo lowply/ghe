@@ -183,7 +183,7 @@ GLOBAL OPTIONS:
 
 The config file path should be _~/.config/ghe.yaml_.
 
-```
+````yaml
 ---
 aws:
   profile: default
@@ -228,3 +228,4 @@ syslog:
 
 - Update version in main.go
 - Run `git tag <version> && git push origin --tags`
+````
