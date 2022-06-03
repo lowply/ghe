@@ -8,6 +8,7 @@ import (
 	"net"
 	"os"
 	"os/exec"
+	"runtime"
 	"strings"
 
 	"github.com/spf13/viper"
@@ -26,8 +27,16 @@ func newDnsmasq() (*dnsmasq, error) {
 		return nil, errors.New("dnsmasq not found")
 	}
 
+	path := "/dnsmasq.d/ghe.conf"
+
+	if runtime.GOARCH == "arm64" {
+		path = "/opt/homebrew/etc" + path
+	} else {
+		path = "/usr/local/etc" + path
+	}
+
 	d := &dnsmasq{
-		path:   "/usr/local/etc/dnsmasq.d/ghe.conf",
+		path:   path,
 		domain: viper.GetString("basic.domain"),
 	}
 
