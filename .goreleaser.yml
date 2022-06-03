@@ -12,3 +12,4 @@ builds:
       - darwin
     goarch:
       - amd64
+      - arm64
